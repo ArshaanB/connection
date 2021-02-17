@@ -3,7 +3,7 @@ import './App.css';
 
 const App = () => {
   return (
-    <div className="app">
+    <div className='app'>
       <header>
         <h1>Video Chat with Hooks</h1>
       </header>
@@ -13,10 +13,10 @@ const App = () => {
       <footer>
         <p>
           Made with{' '}
-          <span role="img" aria-label="React">
+          <span role='img' aria-label='React'>
             ⚛
           </span>{' '}
-          by <a href="https://twitter.com/arshaanb">arshaanb</a>
+          by <a href='https://twitter.com/arshaanb'>arshaanb</a>
         </p>
       </footer>
     </div>
