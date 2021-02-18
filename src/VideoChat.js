@@ -33,6 +33,24 @@ function VideoChat() {
     [username, roomName]
   );
 
+  const handleRandomRoom = useCallback(
+    async (event) => {
+      event.preventDefault();
+      const data = await fetch('/video/tokenRandomRoom', {
+        method: 'POST',
+        body: JSON.stringify({
+          identity: username,
+          room: roomName,
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }).then((res) => res.json());
+      setToken(data.token);
+    },
+    [username, roomName]
+  );
+
   const handleLogout = useCallback((event) => {
     setToken(null);
   }, []);
@@ -48,6 +66,7 @@ function VideoChat() {
         handleUsernameChange={handleUsernameChange}
         handleRoomNameChange={handleRoomNameChange}
         handleSubmit={handleSubmit}
+        handleRandomRoom={handleRandomRoom}
       />
     );
   }

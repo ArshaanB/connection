@@ -4,6 +4,8 @@ const bodyParser = require('body-parser');
 const pino = require('express-pino-logger')();
 const { chatToken, videoToken, voiceToken } = require('./tokens');
 
+const availableRooms = new Set();
+
 const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -46,6 +48,20 @@ app.get('/video/token', (req, res) => {
 app.post('/video/token', (req, res) => {
   const identity = req.body.identity;
   const room = req.body.room;
+  const token = videoToken(identity, room, config);
+  availableRooms.add(room);
+  sendTokenResponse(token, res);
+});
+
+app.post('/video/tokenRandomRoom', (req, res) => {
+  const identity = req.body.identity;
+  let room = 100; // hard coded, remove
+  if (availableRooms.size > 0) {
+    const availableRoomsArray = [...availableRooms];
+    const chooseRoom = availableRoomsArray[0];
+    room = chooseRoom;
+    availableRooms.delete(room);
+  }
   const token = videoToken(identity, room, config);
   sendTokenResponse(token, res);
 });

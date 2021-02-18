@@ -6,6 +6,7 @@ const Lobby = ({
   roomName,
   handleRoomNameChange,
   handleSubmit,
+  handleRandomRoom
 }) => {
   return (
     <form onSubmit={handleSubmit}>
@@ -20,6 +21,7 @@ const Lobby = ({
         <input type='text' id='room' value={roomName} onChange={handleRoomNameChange} required />
       </div>
       <button type='submit'>Submit</button>
+      <button type='button' onClick={handleRandomRoom}>Random Room!</button>
     </form>
   );
 };
