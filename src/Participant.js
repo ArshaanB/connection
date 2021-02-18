@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import './Participant.css';
 
 const Participant = ({ participant }) => {
   const [videoTracks, setVideoTracks] = useState([]);
@@ -11,6 +12,15 @@ const Participant = ({ participant }) => {
     Array.from(trackMap.values())
       .map((publication) => publication.track)
       .filter((track) => track !== null);
+
+  const toggleAudio = () => {
+    audioTracks.forEach((publication) => {
+      publication.track.disable();
+    });
+    videoTracks.forEach((publication) => {
+      publication.track.disable();
+    });
+  };
 
   useEffect(() => {
     const trackSubscribed = (track) => {
@@ -67,6 +77,12 @@ const Participant = ({ participant }) => {
       <h3>{participant.identity}</h3>
       <video ref={videoRef} autoPlay={true} />
       <audio ref={audioRef} autoPlay={true} muted={true} />
+      <button onClick={toggleAudio} id='mute-video' type='button'>
+        Mute Video
+      </button>
+      <button id='mute-audio' type='button'>
+        Mute Audio
+      </button>
     </div>
   );
 };
